@@ -181,7 +181,7 @@ func HTML2Text(html string) string {
 					outBuf.WriteString(lbr + lbr)
 				}
 				canPrintNewline = false
-			} else if tagNameLowercase == "br" || tagNameLowercase == "br/" {
+			} else if tagNameLowercase == "br" || tagNameLowercase == "br/" || tagNameLowercase == "br /" {
 				// new line
 				outBuf.WriteString(lbr)
 			} else if tagNameLowercase == "p" || tagNameLowercase == "/p" {
