@@ -189,6 +189,8 @@ func HTML2Text(html string) string {
 					outBuf.WriteString(lbr + lbr)
 				}
 				canPrintNewline = false
+			} else if tagNameLowercase == "/div" {
+				outBuf.WriteString(lbr)
 			} else if tagNameLowercase == "table" {
 				outBuf.WriteString(lbr)
 			} else if tagNameLowercase == "/tr" || tagNameLowercase == "/th" {

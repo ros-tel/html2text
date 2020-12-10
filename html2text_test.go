@@ -10,8 +10,8 @@ func TestHTML2Text(t *testing.T) {
 	Convey("HTML2Text should work", t, func() {
 
 		Convey("Links", func() {
-			So(HTML2Text(`<div></div>`), ShouldEqual, "")
-			So(HTML2Text(`<div>simple text</div>`), ShouldEqual, "simple text")
+			So(HTML2Text(`<div></div>`), ShouldEqual, "\r\n")
+			So(HTML2Text(`<div>simple text</div>`), ShouldEqual, "simple text\r\n")
 			So(HTML2Text(`click <a href="test">here</a>`), ShouldEqual, "click test")
 			So(HTML2Text(`click <a class="x" href="test">here</a>`), ShouldEqual, "click test")
 			So(HTML2Text(`click <a href="ents/&apos;x&apos;">here</a>`), ShouldEqual, "click ents/'x'")
@@ -23,7 +23,7 @@ func TestHTML2Text(t *testing.T) {
 
 		Convey("Inlines", func() {
 			So(HTML2Text(`strong <strong>text</strong>`), ShouldEqual, "strong text")
-			So(HTML2Text(`some <div id="a" class="b">div</div>`), ShouldEqual, "some div")
+			So(HTML2Text(`some <div id="a" class="b">div</div>`), ShouldEqual, "some div\r\n")
 		})
 
 		Convey("Line breaks and spaces", func() {
@@ -38,7 +38,7 @@ func TestHTML2Text(t *testing.T) {
 			So(HTML2Text("this<table><tr><td>should newline</td></tr></table>a table"), ShouldEqual, "this\r\n| should newline |\r\na table")
 			So(HTML2Text("this<table><th><td>should work</td></th></table>with ths aswell"), ShouldEqual, "this\r\n| should work |\r\nwith ths aswell")
 			So(HTML2Text("<table><tr><td>multirow</td></tr><tr><td>tables</td></tr></table>test"), ShouldEqual, "\r\n| multirow |\r\n| tables |\r\ntest")
-			So(HTML2Text("<table><tr><td>multirow</td><td>multicol tables</td></tr><tr><td>col1</td><td>col2</td></tr></table>test"), ShouldEqual, "\r\n| multirow || multicol tables |\r\n| col1 || col2 |\r\ntest")
+			So(HTML2Text("<table><tr><td>multirow and</td><td>multicol tables</td></tr><tr><td>col1</td><td>col2</td></tr></table>test"), ShouldEqual, "\r\n| multirow and || multicol tables |\r\n| col1 || col2 |\r\ntest")
 		})
 
 		Convey("Headings", func() {
