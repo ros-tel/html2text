@@ -189,6 +189,14 @@ func HTML2Text(html string) string {
 					outBuf.WriteString(lbr + lbr)
 				}
 				canPrintNewline = false
+			} else if tagNameLowercase == "table" {
+				outBuf.WriteString(lbr)
+			} else if tagNameLowercase == "/tr" || tagNameLowercase == "/th" {
+				outBuf.WriteString(lbr)
+			} else if tagNameLowercase == "td" {
+				outBuf.WriteString("| ")
+			} else if tagNameLowercase == "/td" {
+				outBuf.WriteString(" |")
 			} else if badTagnamesRE.MatchString(tagNameLowercase) {
 				// unwanted block
 				badTagStackDepth++
